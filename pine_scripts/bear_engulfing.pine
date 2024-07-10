@@ -1,0 +1,20 @@
+//@version=5
+indicator("Bearish Engulfing Pattern", overlay=true)
+
+// Function to check if a candle is bullish
+isBullish(open, close) =>
+    close > open
+
+// Function to check if a candle is bearish
+isBearish(open, close) =>
+    close < open
+
+// Bearish Engulfing Pattern
+bearishEngulfing = isBullish(open[1], close[1]) and isBearish(open, close) and open > close[1] and close < open[1]
+
+// Plotting signals
+plotshape(series=bearishEngulfing, location=location.abovebar, color=color.red, style=shape.labeldown, text="Bearish Engulfing")
+
+// Background color for pattern detection
+bgcolor(bearishEngulfing ? color.new(color.red, 90) : na)
+
